@@ -11,7 +11,6 @@ import type { Project } from "../../types/typeProject";
 
 import {
   MessageSquare,
-  ShieldCheck,
   FolderDot,
   LayoutDashboard,
   Users,
