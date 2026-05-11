@@ -14,7 +14,9 @@ const app = express();
 
 
 // 🔧 middlewares
-app.use(cors());
+export const API = axios.create({
+  baseURL: import.meta.env.VITE_API_URL
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
