@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIXEL.DEV | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.98; }
+        }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px #03dffc, 0 0 40px #03dffc; }
+            50% { box-shadow: 0 0 30px #03dffc, 0 0 60px #03dffc; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slideUp { animation: slideUp 0.6s ease-out forwards; }
+        .crt-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1) 0px,
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 10;
+        }
+        .neon-glow { animation: glow 2s ease-in-out infinite; }
+        .pixel-font { font-family: 'Press Start 2P', cursive; }
+        .space-font { font-family: 'Space Grotesk', sans-serif; }
+        .inter-font { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="space-font transition-all duration-500 bg-white text-black" id="body">
+    
+    <!-- Scanline Overlay -->
+    <div id="scanlines" class="fixed inset-0 pointer-events-none z-50 opacity-10" style="background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px);"></div>
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-40 bg-white border-b-4 border-black transition-all duration-500">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Logo -->
+                <a href="#" class="pixel-font text-sm sm:text-base tracking-tighter" style="color: #03dffc;">
+                    PIXEL<span class="text-black dark-text">.DEV</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="font-semibold hover:text-[#03dffc] transition-colors border-b-4 border-transparent hover:border-[#03dffc]">Home</a>
+                    <a href="#projects" class="font-semibold hover:text-[#03dffc] transition-colors border-b-4 border-transparent hover:border-[#03dffc]">Projects</a>
+                    <a href="#about" class="font-semibold hover:text-[#03dffc] transition-colors border-b-4 border-transparent hover:border-[#03dffc]">About</a>
+                    <a href="#contact" class="font-semibold hover:text-[#03dffc] transition-colors border-b-4 border-transparent hover:border-[#03dffc]">Contact</a>
+                </div>
+
+                <!-- Dark Mode Toggle & Mobile Menu -->
+                <div class="flex items-center gap-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="themeToggle" class="relative w-16 h-8 bg-black border-4 border-black rounded-none transition-all duration-300 overflow-hidden" onclick="toggleTheme()">
+                        <div id="toggleSlider" class="absolute top-0 left-0 w-6 h-6 bg-[#03dffc] transition-transform duration-300 flex items-center justify-center">
+                            <iconify-icon icon="solar:sun-linear" width="16" height="16" style="stroke-width: 1.5;" id="sunIcon"></iconify-icon>
+                        </div>
+                        <iconify-icon icon="solar:moon-linear" width="16" height="16" class="absolute right-1 top-1 text-white" style="stroke-width: 1.5;" id="moonIcon"></iconify-icon>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden p-2 border-4 border-black" onclick="toggleMobileMenu()">
+                        <iconify-icon icon="solar:hamburger-menu-linear" width="24" height="24" style="stroke-width: 1.5;"></iconify-icon>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t-4 border-black">
+            <div class="px-4 py-4 space-y-4">
+                <a href="#home" class="block font-semibold py-2 border-b-4 border-transparent hover:border-[#03dffc]">Home</a>
+                <a href="#projects" class="block font-semibold py-2 border-b-4 border-transparent hover:border-[#03dffc]">Projects</a>
+                <a href="#about" class="block font-semibold py-2 border-b-4 border-transparent hover:border-[#03dffc]">About</a>
+                <a href="#contact" class="block font-semibold py-2 border-b-4 border-transparent hover:border-[#03dffc]">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen pt-20 sm:pt-24 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #000 1px, transparent 1px); background-size: 20px 20px;"></div>
+        
+        <!-- Geometric Shapes -->
+        <div class="absolute top-32 left-10 w-20 h-20 border-4 border-[#ff03fc] rotate-45 hidden sm:block"></div>
+        <div class="absolute bottom-20 right-10 w-32 h-32 bg-[#fcff03] opacity-50 hidden sm:block"></div>
+        <div class="absolute top-1/2 right-20 w-16 h-16 border-4 border-[#03dffc] hidden lg:block"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                <!-- Profile Image with CRT Effect -->
+                <div class="relative">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 border-8 border-black crt-effect" style="box-shadow: 12px 12px 0 #03dffc;">
+                        <div class="w-full h-full bg-gradient-to-br from-[#03dffc] to-[#ff03fc] flex items-center justify-center">
+                            <span class="pixel-font text-6xl sm:text-8xl text-white">JD</span>
+                        </div>
+                        <!-- Scanline Animation -->
+                        <div class="absolute inset-0 overflow-hidden">
+                            <div class="w-full h-2 bg-white opacity-10" style="animation: scanline 3s linear infinite;"></div>
+                        </div>
+                    </div>
+                    <!-- Decorative Elements -->
+                    <div class="absolute -bottom-4 -right-4 w-full h-full border-4 border-[#ff03fc] -z-10"></div>
+                </div>
+
+                <!-- Hero Content -->
+                <div class="text-center lg:text-left">
+                    <p class="pixel-font text-xs sm:text-sm mb-4" style="color: #03dffc;">HELLO, I'M</p>
+                    <h1 class="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight mb-4">
+                        JOHN<br>
+                        <span class="relative inline-block">
+                            DOE
+                            <span class="absolute -bottom-2 left-0 w-full h-2 bg-[#fcff03]"></span>
+                        </span>
+                    </h1>
+                    <p class="pixel-font text-base sm:text-lg mb-8" style="color: #ff03fc; text-shadow: 2px 2px 0 #03dffc;">
+                        CREATIVE DEVELOPER
+                    </p>
+                    <p class="inter-font text-base sm:text-lg max-w-md mb-8 mx-auto lg:mx-0">
+                        Building digital experiences with bold aesthetics and cutting-edge technology.
+                    </p>
+                    <a href="#projects" class="inline-block px-8 py-4 bg-[#03dffc] text-black font-bold border-4 border-black transition-all duration-200 hover:translate-x-1 hover:translate-y-1" style="box-shadow: 6px 6px 0 #000;">
+                        VIEW PROJECTS
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 sm:py-32 relative">
+        <div class="absolute inset-0 opacity-5" style="background: repeating-linear-gradient(45deg, transparent, transparent 10px, #000 10px, #000 11px);"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center mb-16">
+                <p class="pixel-font text-xs sm:text-sm mb-4" style="color: #ff03fc;">MY WORK</p>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+                    PROJECTS
+                </h2>
+                <div class="w-32 h-2 bg-[#03dffc] mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="group bg-white border-4 border-black transition-all duration-300 hover:-translate-y-2" style="box-shadow: 8px 8px 0 #000;" onmouseenter="this.style.boxShadow='12px 12px 0 #03dffc'" onmouseleave="this.style.boxShadow='8px 8px 0 #000'">
+                    <div class="relative h-48 bg-gradient-to-br from-[#03dffc] to-[#ff03fc] overflow-hidden crt-effect">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="pixel-font text-2xl text-white">01</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 pb-2 border-b-4 border-[#03dffc]">NEON DASHBOARD</h3>
+                        <p class="inter-font text-sm mb-4">A retro-futuristic analytics dashboard with real-time data visualization.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#03dffc]">REACT</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#ff03fc]">D3.JS</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#fcff03]">NODE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="group bg-white border-4 border-black transition-all duration-300 hover:-translate-y-2" style="box-shadow: 8px 8px 0 #000;" onmouseenter="this.style.boxShadow='12px 12px 0 #ff03fc'" onmouseleave="this.style.boxShadow='8px 8px 0 #000'">
+                    <div class="relative h-48 bg-gradient-to-br from-[#fcff03] to-[#ff03fc] overflow-hidden crt-effect">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="pixel-font text-2xl text-black">02</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 pb-2 border-b-4 border-[#ff03fc]">ARCADE STORE</h3>
+                        <p class="inter-font text-sm mb-4">E-commerce platform with retro gaming aesthetics and smooth UX.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#03dffc]">NEXT.JS</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#ff03fc]">STRIPE</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#fcff03]">MONGO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="group bg-white border-4 border-black transition-all duration-300 hover:-translate-y-2" style="box-shadow: 8px 8px 0 #000;" onmouseenter="this.style.boxShadow='12px 12px 0 #fcff03'" onmouseleave="this.style.boxShadow='8px 8px 0 #000'">
+                    <div class="relative h-48 bg-gradient-to-br from-[#03dffc] to-[#fcff03] overflow-hidden crt-effect">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="pixel-font text-2xl text-black">03</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 pb-2 border-b-4 border-[#fcff03]">PIXEL CHAT</h3>
+                        <p class="inter-font text-sm mb-4">Real-time messaging app with nostalgic 8-bit design elements.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#03dffc]">SOCKET</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#ff03fc]">REDIS</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#fcff03]">AWS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 4 -->
+                <div class="group bg-white border-4 border-black transition-all duration-300 hover:-translate-y-2" style="box-shadow: 8px 8px 0 #000;" onmouseenter="this.style.boxShadow='12px 12px 0 #03dffc'" onmouseleave="this.style.boxShadow='8px 8px 0 #000'">
+                    <div class="relative h-48 bg-gradient-to-br from-[#ff03fc] to-[#03dffc] overflow-hidden crt-effect">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="pixel-font text-2xl text-white">04</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 pb-2 border-b-4 border-[#03dffc]">SYNTH PORTFOLIO</h3>
+                        <p class="inter-font text-sm mb-4">Creative portfolio template with synthwave aesthetics.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#03dffc]">VUE</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#ff03fc]">GSAP</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#fcff03]">THREE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 5 -->
+                <div class="group bg-white border-4 border-black transition-all duration-300 hover:-translate-y-2" style="box-shadow: 8px 8px 0 #000;" onmouseenter="this.style.boxShadow='12px 12px 0 #ff03fc'" onmouseleave="this.style.boxShadow='8px 8px 0 #000'">
+                    <div class="relative h-48 bg-gradient-to-br from-[#fcff03] to-[#03dffc] overflow-hidden crt-effect">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="pixel-font text-2xl text-black">05</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 pb-2 border-b-4 border-[#ff03fc]">RETRO CMS</h3>
+                        <p class="inter-font text-sm mb-4">Content management system with vintage terminal interface.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#03dffc]">PYTHON</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#ff03fc]">DJANGO</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#fcff03]">PSQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 6 -->
+                <div class="group bg-white border-4 border-black transition-all duration-300 hover:-translate-y-2" style="box-shadow: 8px 8px 0 #000;" onmouseenter="this.style.boxShadow='12px 12px 0 #fcff03'" onmouseleave="this.style.boxShadow='8px 8px 0 #000'">
+                    <div class="relative h-48 bg-gradient-to-br from-[#03dffc] to-[#ff03fc] overflow-hidden crt-effect">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="pixel-font text-2xl text-white">06</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 pb-2 border-b-4 border-[#fcff03]">GAME HUB</h3>
+                        <p class="inter-font text-sm mb-4">Gaming platform with leaderboards and social features.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#03dffc]">RUST</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#ff03fc]">WASM</span>
+                            <span class="pixel-font text-xs px-3 py-1 bg-black text-[#fcff03]">REACT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 sm:py-32 relative" style="background: linear-gradient(135deg, #03dffc 0%, #ff03fc 100%);">
+        <div class="absolute inset-0 bg-white opacity-95 dark-bg"></div>
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle, #000 2px, transparent 2px); background-size: 30px 30px;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center mb-16">
+                <p class="pixel-font text-xs sm:text-sm mb-4" style="color: #03dffc;">WHO AM I</p>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+                    ABOUT ME
+                </h2>
+                <div class="w-32 h-2 bg-[#ff03fc] mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Text Content -->
+                <div>
+                    <p class="inter-font text-lg mb-6">
+                        I'm a creative developer passionate about blending retro aesthetics with modern technology. With over 5 years of experience, I specialize in building memorable digital experiences.
+                    </p>
+                    <p class="inter-font text-lg mb-8">
+                        My work draws inspiration from 80s arcade games, synthwave culture, and brutalist design principles. I believe in bold choices and functional beauty.
+                    </p>
+
+                    <!-- Skills -->
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold">FRONTEND</span>
+                                <span class="pixel-font text-xs" style="color: #03dffc;">95%</span>
+                            </div>
+                            <div class="h-6 bg-black border-4 border-black overflow-hidden">
+                                <div class="h-full bg-[#03dffc]" style="width: 95%; background-image: repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(0,0,0,0.2) 8px, rgba(0,0,0,0.2) 10px);"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold">BACKEND</span>
+                                <span class="pixel-font text-xs" style="color: #ff03fc;">85%</span>
+                            </div>
+                            <div class="h-6 bg-black border-4 border-black overflow-hidden">
+                                <div class="h-full bg-[#ff03fc]" style="width: 85%; background-image: repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(0,0,0,0.2) 8px, rgba(0,0,0,0.2) 10px);"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold">UI/UX DESIGN</span>
+                                <span class="pixel-font text-xs" style="color: #fcff03;">90%</span>
+                            </div>
+                            <div class="h-6 bg-black border-4 border-black overflow-hidden">
+                                <div class="h-full bg-[#fcff03]" style="width: 90%; background-image: repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(0,0,0,0.2) 8px, rgba(0,0,0,0.2) 10px);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Geometric Illustration -->
+                <div class="relative flex justify-center">
+                    <div class="relative w-72 h-72 sm:w-96 sm:h-96">
+                        <!-- Main Shape -->
+                        <div class="absolute inset-0 bg-[#03dffc] border-4 border-black" style="box-shadow: 8px 8px 0 #000;"></div>
+                        <!-- Overlapping Shapes -->
+                        <div class="absolute top-8 left-8 w-full h-full border-4 border-[#ff03fc]"></div>
+                        <div class="absolute top-16 left-16 w-full h-full border-4 border-[#fcff03]"></div>
+                        
+                        <!-- Tool Icons -->
+                        <div class="absolute inset-0 flex flex-wrap items-center justify-center gap-6 p-8">
+                            <div class="w-16 h-16 bg-white border-4 border-black flex items-center justify-center" style="box-shadow: 4px 4px 0 #000;">
+                                <iconify-icon icon="solar:code-square-linear" width="32" height="32" style="stroke-width: 1.5;"></iconify-icon>
+                            </div>
+                            <div class="w-16 h-16 bg-white border-4 border-black flex items-center justify-center" style="box-shadow: 4px 4px 0 #000;">
+                                <iconify-icon icon="solar:palette-linear" width="32" height="32" style="stroke-width: 1.5;"></iconify-icon>
+                            </div>
+                            <div class="w-16 h-16 bg-white border-4 border-black flex items-center justify-center" style="box-shadow: 4px 4px 0 #000;">
+                                <iconify-icon icon="solar:server-linear" width="32" height="32" style="stroke-width: 1.5;"></iconify-icon>
+                            </div>
+                            <div class="w-16 h-16 bg-white border-4 border-black flex items-center justify-center" style="box-shadow: 4px 4px 0 #000;">
+                                <iconify-icon icon="solar:smartphone-linear" width="32" height="32" style="stroke-width: 1.5;"></iconify-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 sm:py-32 relative bg-black text-white">
+        <div class="absolute inset-0 opacity-10" style="background: repeating-linear-gradient(0deg, transparent, transparent 2px, #03dffc 2px, #03dffc 4px);"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center mb-16">
+                <p class="pixel-font text-xs sm:text-sm mb-4" style="color: #03dffc;">GET IN TOUCH</p>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+                    CONTACT
+                </h2>
+                <div class="w-32 h-2 bg-[#ff03fc] mx-auto mt-4"></div>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+                <!-- Terminal Style Form -->
+                <div class="bg-black border-4 border-[#03dffc] p-6 sm:p-8" style="box-shadow: 8px 8px 0 #03dffc;">
+                    <!-- Terminal Header -->
+                    <div class="flex items-center gap-2 mb-6 pb-4 border-b-2 border-[#03dffc]">
+                        <div class="w-3 h-3 rounded-full bg-[#ff03fc]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#fcff03]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#03dffc]"></div>
+                        <span class="pixel-font text-xs ml-4 text-[#03dffc]">CONTACT.EXE</span>
+                    </div>
+
+                    <form class="space-y-6">
+                        <div>
+                            <label class="pixel-font text-xs text-[#03dffc] mb-2 block">NAME_</label>
+                            <input type="text" class="w-full bg-transparent border-4 border-[#03dffc] px-4 py-3 text-white inter-font focus:outline-none focus:border-[#ff03fc] transition-colors" placeholder="Enter your name...">
+                        </div>
+                        <div>
+                            <label class="pixel-font text-xs text-[#03dffc] mb-2 block">EMAIL_</label>
+                            <input type="email" class="w-full bg-transparent border-4 border-[#03dffc] px-4 py-3 text-white inter-font focus:outline-none focus:border-[#ff03fc] transition-colors" placeholder="Enter your email...">
+                        </div>
+                        <div>
+                            <label class="pixel-font text-xs text-[#03dffc] mb-2 block">MESSAGE_</label>
+                            <textarea rows="5" class="w-full bg-transparent border-4 border-[#03dffc] px-4 py-3 text-white inter-font focus:outline-none focus:border-[#ff03fc] transition-colors resize-none" placeholder="Type your message..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-8 py-4 bg-[#03dffc] text-black font-bold border-4 border-[#03dffc] transition-all duration-200 hover:bg-[#ff03fc] hover:border-[#ff03fc] neon-glow">
+                            SEND MESSAGE
+                        </button>
+                    </form>
+
+                    <!-- Terminal Output -->
+                    <div class="mt-6 pt-4 border-t-2 border-[#03dffc]">
+                        <p class="pixel-font text-xs text-[#03dffc]">> READY TO RECEIVE YOUR MESSAGE...</p>
+                        <p class="pixel-font text-xs text-[#03dffc] mt-1">><span class="animate-pulse">_</span></p>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div class="flex justify-center gap-6 mt-12">
+                    <a href="#" class="w-14 h-14 bg-transparent border-4 border-white flex items-center justify-center transition-all duration-200 hover:bg-[#03dffc] hover:border-[#03dffc] hover:text-black" style="box-shadow: 4px 4px 0 #fff;">
+                        <iconify-icon icon="solar:letter-linear" width="24" height="24" style="stroke-width: 1.5;"></iconify-icon>
+                    </a>
+                    <a href="#" class="w-14 h-14 bg-transparent border-4 border-white flex items-center justify-center transition-all duration-200 hover:bg-[#ff03fc] hover:border-[#ff03fc] hover:text-black" style="box-shadow: 4px 4px 0 #fff;">
+                        <iconify-icon icon="solar:link-linear" width="24" height="24" style="stroke-width: 1.5;"></iconify-icon>
+                    </a>
+                    <a href="#" class="w-14 h-14 bg-transparent border-4 border-white flex items-center justify-center transition-all duration-200 hover:bg-[#fcff03] hover:border-[#fcff03] hover:text-black" style="box-shadow: 4px 4px 0 #fff;">
+                        <iconify-icon icon="solar:share-circle-linear" width="24" height="24" style="stroke-width: 1.5;"></iconify-icon>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t-4 border-black py-8 relative transition-all duration-500" id="footer">
+        <div class="absolute inset-0 opacity-5" style="background: repeating-linear-gradient(90deg, transparent, transparent 20px, #000 20px, #000 21px);"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="pixel-font text-xs text-center sm:text-left">
+                    © 2024 PIXEL.DEV // ALL RIGHTS RESERVED
+                </p>
+                
+                <!-- Back to Top -->
+                <a href="#home" class="group flex items-center gap-2 px-4 py-2 bg-[#03dffc] border-4 border-black transition-all duration-200 hover:-translate-y-1" style="box-shadow: 4px 4px 0 #000;">
+                    <iconify-icon icon="solar:arrow-up-linear" width="20" height="20" style="stroke-width: 1.5;" class="group-hover:animate-bounce"></iconify-icon>
+                    <span class="pixel-font text-xs">BACK TO TOP</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let isDarkMode = false;
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            const body = document.getElementById('body');
+            const header = document.getElementById('header');
+            const footer = document.getElementById('footer');
+            const slider = document.getElementById('toggleSlider');
+            const scanlines = document.getElementById('scanlines');
+
+            if (isDarkMode) {
+                // Dark Mode
+                body.style.backgroundColor = '#111111';
+                body.style.color = '#ffffff';
+                header.style.backgroundColor = '#111111';
+                header.style.borderColor = '#03dffc';
+                footer.style.backgroundColor = '#111111';
+                footer.style.borderColor = '#03dffc';
+                slider.style.transform = 'translateX(24px)';
+                scanlines.style.background = 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(3,223,252,0.05) 2px, rgba(3,223,252,0.05) 4px)';
+                
+                // Update all cards and elements
+                document.querySelectorAll('.bg-white').forEach(el => {
+                    if (!el.classList.contains('border-4')) {
+                        el.style.backgroundColor = '#1a1a1a';
+                    }
+                });
+                
+                // Update project cards
+                document.querySelectorAll('[style*="box-shadow: 8px 8px 0 #000"]').forEach(el => {
+                    el.style.backgroundColor = '#1a1a1a';
+                });
+                
+            } else {
+                // Light Mode
+                body.style.backgroundColor = '#ffffff';
+                body.style.color = '#000000';
+                header.style.backgroundColor = '#ffffff';
+                header.style.borderColor = '#000000';
+                footer.style.backgroundColor = '#ffffff';
+                footer.style.borderColor = '#000000';
+                slider.style.transform = 'translateX(0)';
+                scanlines.style.background = 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)';
+                
+                // Reset all cards
+                document.querySelectorAll('[style*="background-color: rgb(26, 26, 26)"]').forEach(el => {
+                    el.style.backgroundColor = '#ffffff';
+                });
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    // Close mobile menu if open
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-slideUp');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
