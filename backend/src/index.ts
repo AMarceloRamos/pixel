@@ -15,7 +15,7 @@ const app = express();
 
 // 🔧 middlewares
 app.use(cors({
-  origin: "https://pixeldev-theta.vercel.app/",
+  origin: "https://pixeldev-theta.vercel.app",
   credentials: true
 }));
 app.use(express.json());
