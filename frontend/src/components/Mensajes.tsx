@@ -3,24 +3,15 @@ import { API } from "../services/api";
 import type { Contact } from "../types/typeMenssage";
 import { motion } from "framer-motion";
 import {
-  Loader2,
-  ShieldCheck,
- 
+  Loader2
 } from "lucide-react";
 
-import Message from "./tableMessage";
-
 export default function Mensajes() {
- 
-
   const [mensajes, setMensajes] = useState<
     Contact[]
   >([]);
 
   const [loading, setLoading] = useState(true);
-
-
-
   // 📥 cargar mensajes
   const loadMensajes = async () => {
     try {
