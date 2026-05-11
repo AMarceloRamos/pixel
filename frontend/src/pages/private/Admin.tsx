@@ -13,7 +13,6 @@ import {
   MessageSquare,
   FolderDot,
   LayoutDashboard,
-  Users,
   Settings,
   BarChart3,
   Menu,
