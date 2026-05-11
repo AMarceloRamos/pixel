@@ -14,9 +14,10 @@ const app = express();
 
 
 // 🔧 middlewares
-export const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL
-});
+app.use(cors({
+  origin: "https://tu-app.vercel.app",
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
