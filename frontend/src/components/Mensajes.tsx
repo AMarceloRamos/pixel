@@ -3,7 +3,6 @@ import { API } from "../services/api";
 import type { Contact } from "../types/typeMenssage";
 import { motion } from "framer-motion";
 import {
-  MessageSquare,
   Loader2,
   ShieldCheck,
  
